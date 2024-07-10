@@ -1,4 +1,4 @@
-# Display all GCP subnet in a Org using GCP Itenary
+# Display all GCP subnets in a Org using GCP Itenary
 GCP show all subnets in a GCP org across all projects
 
 # Step-by-Step Instructions
