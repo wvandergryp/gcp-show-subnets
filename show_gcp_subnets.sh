@@ -10,8 +10,8 @@ input_file="$1"
 
 # Function to extract subnets and CIDRs for a given network in a project
 extract_subnets() {
-  local network=$1
-  local project=$2
+  local project=$1
+  local network=$2
   subnets=$(gcloud compute networks subnets list --network="$network" --project="$project" --format="value(name, ipCidrRange)")
   echo "$subnets"
 }
@@ -19,12 +19,9 @@ extract_subnets() {
 # Main script
 echo "Extracted Subnets with CIDRs:"
 
-while IFS= read -r line; do
-  network=$(echo $line | awk '{print $1}')
-  project=$(echo $line | awk '{print $2}')
-  
-  echo "Network: $network, Project: $project"
-  subnets=$(extract_subnets "$network" "$project")
+while IFS=',' read -r project network; do
+  echo "Project: $project, Network: $network"
+  subnets=$(extract_subnets "$project" "$network")
   if [ -n "$subnets" ]; then
     echo "$subnets"
   else
